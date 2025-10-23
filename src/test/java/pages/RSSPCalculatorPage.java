@@ -88,33 +88,33 @@ public class RSSPCalculatorPage {
         wait.until(ExpectedConditions.elementToBeClickable(calculateBtn)).click();
     }
 
-    public void verifySavingsAmount(String amount){
+    public void verifySavingsAmount(String amount) {
         assertEquals(amount, totalSavingsAmount.getText());
     }
 
-    public void verifySavingsDiff(String savingsAmount, String contributionAmount){
+    public void verifySavingsDiff(String savingsAmount, String contributionAmount) {
         assertEquals(savingsAmount, savingsTipDiffTxt.getText());
         assertEquals(contributionAmount, tipDiffTxt.getText());
     }
 
-    public void clickRateOfReturnTooltip(){
+    public void clickRateOfReturnTooltip() {
         rateOfReturnTooltip.click();
     }
 
-    public void verifyRateTooltip(){
+    public void verifyRateTooltip() {
         rateOfReturnTooltip.isDisplayed();
     }
 
-    public void verifyRateTooltipContent(String expectedContent){
+    public void verifyRateTooltipContent(String expectedContent) {
         assertTrue(rateTooltipContent.isDisplayed());
         assertTrue(expectedContent, rateTooltipContent.getText().contains(expectedContent));
     }
 
-    public void verifyRateErrorMsgVisibility(){
+    public void verifyRateErrorMsgVisibility() {
         rateOfReturnErrorMsg.isDisplayed();
     }
 
-    public void verifyRateErrorMsg(String expectedError){
+    public void verifyRateErrorMsg(String expectedError) {
         assertTrue(expectedError, rateOfReturnErrorMsg.getText().contains(expectedError));
     }
 }

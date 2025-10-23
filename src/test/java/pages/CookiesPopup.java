@@ -10,7 +10,8 @@ import static org.junit.Assert.assertTrue;
 
 public class CookiesPopup {
     WebDriver driver;
-    public CookiesPopup(WebDriver driver){
+
+    public CookiesPopup(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -20,11 +21,11 @@ public class CookiesPopup {
     @FindBy(id = "onetrust-accept-btn-handler")
     private WebElement acceptAllCookies;
 
-    public void verifyCookiesBannerVisibility(){
+    public void verifyCookiesBannerVisibility() {
         assertTrue(cookiesBanner.isDisplayed());
     }
 
-    public void clickAcceptAllCookies(){
+    public void clickAcceptAllCookies() {
         acceptAllCookies.click();
     }
 }

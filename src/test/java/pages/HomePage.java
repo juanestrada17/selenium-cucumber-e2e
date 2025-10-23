@@ -30,31 +30,31 @@ public class HomePage {
 
 
     // methods
-    public String getUrl(){
+    public String getUrl() {
         return driver.getCurrentUrl();
     }
 
-    public void verifyPageUrl(){
+    public void verifyPageUrl() {
         assertEquals(DataFile.homePageUrl, getUrl());
     }
 
-    public void verifyWelcomeText(){
+    public void verifyWelcomeText() {
         assertTrue(welcomeText.isDisplayed());
     }
 
-    public void verifyInvestmentsLink(){
+    public void verifyInvestmentsLink() {
         assertTrue(investmentsLink.isDisplayed());
     }
 
-    public void clickInvestmentsLink(){
+    public void clickInvestmentsLink() {
         investmentsLink.click();
     }
 
-    public void hoverInvestmentsLink(){
+    public void hoverInvestmentsLink() {
         action.moveToElement(investmentsLink).perform();
     }
 
-    public void clickRRSPCalculatorLnk(){
+    public void clickRRSPCalculatorLnk() {
         hoverInvestmentsLink();
         action.moveToElement(rrspCalculatorLink).click().perform();
     }

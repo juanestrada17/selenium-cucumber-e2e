@@ -62,7 +62,7 @@ public class DriverUtilities {
         return config.getProperty("Browser");
     }
 
-    public static void resetDriver(){
+    public static void resetDriver() {
         driver.quit();
         driverUtilities = null;
         driver = null;
