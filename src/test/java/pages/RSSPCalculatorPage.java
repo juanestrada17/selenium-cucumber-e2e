@@ -4,7 +4,6 @@ import data.DataFile;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,13 +14,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RSSPCalculatorPage {
-    WebDriver driver;
+public class RSSPCalculatorPage extends BasePage {
 
-    public RSSPCalculatorPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
 
     @FindBy(tagName = "h1")
     private WebElement pageTitle;
@@ -49,6 +43,10 @@ public class RSSPCalculatorPage {
     private WebElement rateTooltipContent;
     @FindBy(id = "error-rate")
     private WebElement rateOfReturnErrorMsg;
+
+    public RSSPCalculatorPage(WebDriver driver) {
+        super(driver);
+    }
 
     public void verifyPageTitle() {
         assertTrue(pageTitle.isDisplayed());
@@ -85,7 +83,8 @@ public class RSSPCalculatorPage {
         rateOfReturn.sendKeys(rate);
     }
 
-    public void clickCalculateBtn() {;
+    public void clickCalculateBtn() {
+        ;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         wait.until(ExpectedConditions.elementToBeClickable(calculateBtn)).click();
     }
@@ -108,7 +107,7 @@ public class RSSPCalculatorPage {
         rateOfReturnTooltip.isDisplayed();
     }
 
-    public void verifyRateToolTipContentVisibility(){
+    public void verifyRateToolTipContentVisibility() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(rateTooltipContent));
         assertTrue(rateTooltipContent.isDisplayed());

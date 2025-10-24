@@ -3,22 +3,13 @@ package pages;
 import data.DataFile;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class HomePage {
-    WebDriver driver;
-    Actions action;
+public class HomePage extends BasePage {
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-        this.action = new Actions(driver);
-        PageFactory.initElements(driver, this);
-    }
 
     // locators
     @FindBy(xpath = "//h1[contains(text(), 'Welcome to RBC')]")
@@ -31,10 +22,14 @@ public class HomePage {
     private WebElement mortgagesLink;
     @FindBy(linkText = "Rent vs Buy Calculator")
     private WebElement rentBuyCalculatorLink;
-    @FindBy(id= "q")
+    @FindBy(id = "q")
     private WebElement findATMSearchBar;
-    @FindBy(id= "branch-atm-search")
+    @FindBy(id = "branch-atm-search")
     private WebElement findATMSearchBtn;
+
+    public HomePage(WebDriver driver) {
+        super(driver);
+    }
 
     // methods
     public String getUrl() {
@@ -62,7 +57,7 @@ public class HomePage {
         action.moveToElement(rrspCalculatorLink).click().perform();
     }
 
-    public void verifyMortgagesLink(){
+    public void verifyMortgagesLink() {
         assertTrue(mortgagesLink.isDisplayed());
     }
 
@@ -75,11 +70,11 @@ public class HomePage {
         action.moveToElement(rentBuyCalculatorLink).click().perform();
     }
 
-    public void inputAddress(String address){
+    public void inputAddress(String address) {
         findATMSearchBar.sendKeys(address);
     }
 
-    public void clickATMLocatorButton(){
+    public void clickATMLocatorButton() {
         findATMSearchBtn.click();
     }
 }

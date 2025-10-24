@@ -11,15 +11,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ATMLocatorPage {
-    WebDriver driver;
-    Actions action;
+public class ATMLocatorPage extends BasePage {
 
-    public ATMLocatorPage(WebDriver driver) {
-        this.driver = driver;
-        this.action = new Actions(driver);
-        PageFactory.initElements(driver, this);
-    }
 
     @FindBy(xpath = "//div[contains(@class, 'map-sidebar-content')]")
     private WebElement mapSideBar;
@@ -31,6 +24,10 @@ public class ATMLocatorPage {
     private WebElement shareLocationBtn;
     @FindBy(id = "page-title")
     private WebElement pageTitle;
+
+    public ATMLocatorPage(WebDriver driver) {
+        super(driver);
+    }
 
     public void verifyVisibleSideBar() {
         mapSideBar.isDisplayed();

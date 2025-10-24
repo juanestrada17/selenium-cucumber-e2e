@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="141.277" tests="19" skipped="0" failures="0" errors="0" timestamp="2025-10-24T18:57:07.164960400Z">
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to click on rate of return tooltip to get a message explaining what to input" time="6.511">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+Given User can see the tooltip next to the rate field.......................passed
+When User clicks the tooltip for rate field.................................passed
+And User can see tooltip content............................................passed
+Then User should see a message "This is how much growth you expect to see in your account between now and retirement.".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should get an error when entering rate of return lower than 1% or higher than 1000% - #1.1" time="6.086">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+When User inputs an invalid rate of return "-1".............................passed
+Then User should be able to see the message "Please select a rate between 1% and 1000%".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should get an error when entering rate of return lower than 1% or higher than 1000% - #1.2" time="6.119">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+When User inputs an invalid rate of return "0"..............................passed
+Then User should be able to see the message "Please select a rate between 1% and 1000%".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should get an error when entering rate of return lower than 1% or higher than 1000% - #1.3" time="6.017">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+When User inputs an invalid rate of return "1001"...........................passed
+Then User should be able to see the message "Please select a rate between 1% and 1000%".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should get an error when entering rate of return lower than 1% or higher than 1000% - #1.4" time="6.093">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+When User inputs an invalid rate of return "1002"...........................passed
+Then User should be able to see the message "Please select a rate between 1% and 1000%".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to calculate total savings given and shown a savings tip when - #1.1" time="11.828">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+When User inputs the years "20" to retire...................................passed
+And User inputs the ongoing contribution "300"..............................passed
+And User selects the contribution "Monthly".................................passed
+And User inputs the "5" of return...........................................passed
+And User clicks calculate button............................................passed
+Then User should see the total "$123,310.10"................................passed
+Then User should see a tip with potential savings "$10,512" and recommended contribution amount "$150".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to calculate total savings given and shown a savings tip when - #1.2" time="11.721">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+When User inputs the years "1" to retire....................................passed
+And User inputs the ongoing contribution "25"...............................passed
+And User selects the contribution "Monthly".................................passed
+And User inputs the "1" of return...........................................passed
+And User clicks calculate button............................................passed
+Then User should see the total "$301.38"....................................passed
+Then User should see a tip with potential savings "$25" and recommended contribution amount "$13".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to calculate total savings given and shown a savings tip when - #1.3" time="11.73">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Investments tab...........................................passed
+And User hovers over Investments tab........................................passed
+And User clicks RRSP Calculator link........................................passed
+And User should be at the rrsp calculator page..............................passed
+And User should see the Calculator fields...................................passed
+When User inputs the years "50" to retire...................................passed
+And User inputs the ongoing contribution "25"...............................passed
+And User selects the contribution "Quarterly"...............................passed
+And User inputs the "1" of return...........................................passed
+And User clicks calculate button............................................passed
+Then User should see the total "$6,476.93"..................................passed
+Then User should see a tip with potential savings "$549" and recommended contribution amount "$4".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to click on the amortization period and get a clear message of what it means" time="5.41">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Mortgages tab.............................................passed
+And User hovers over Mortgages tab..........................................passed
+And User clicks Rent vs Buy Calculator......................................passed
+And User should be at the Rent vs Buy Calculator page.......................passed
+And User should see the calculator fields...................................passed
+When User clicks the amortization period tooltip............................passed
+Then User should be able to see "Most people choose a 25-year amortization period" in the period message.passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to click on the down payment tooltip and get a clear message of what it means" time="7.895">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Mortgages tab.............................................passed
+And User hovers over Mortgages tab..........................................passed
+And User clicks Rent vs Buy Calculator......................................passed
+And User should be at the Rent vs Buy Calculator page.......................passed
+And User should see the calculator fields...................................passed
+When User clicks the down payment tooltip...................................passed
+Then User should be able to see "In order to be approved for a mortgage, you will need at least 5% of the purchase price" in the down payment.passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see an error message if monthly rent is not provided - #1.1" time="6.286">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Mortgages tab.............................................passed
+And User hovers over Mortgages tab..........................................passed
+And User clicks Rent vs Buy Calculator......................................passed
+And User should be at the Rent vs Buy Calculator page.......................passed
+And User should see the calculator fields...................................passed
+When User inputs monthly rent "0"...........................................passed
+Then User shouldn't be able to click on the calculate button and it should be disabled.passed
+Then User should see an error message "Please enter your monthly rent.".....passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see an error message if monthly rent is not provided - #1.2" time="6.347">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Mortgages tab.............................................passed
+And User hovers over Mortgages tab..........................................passed
+And User clicks Rent vs Buy Calculator......................................passed
+And User should be at the Rent vs Buy Calculator page.......................passed
+And User should see the calculator fields...................................passed
+When User inputs monthly rent ""............................................passed
+Then User shouldn't be able to click on the calculate button and it should be disabled.passed
+Then User should see an error message "Please enter your monthly rent.".....passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see the mortgage (loan) amount when selecting 5%, 10% and 20% down payment for a - #1.1" time="8.799">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Mortgages tab.............................................passed
+And User hovers over Mortgages tab..........................................passed
+And User clicks Rent vs Buy Calculator......................................passed
+And User should be at the Rent vs Buy Calculator page.......................passed
+And User should see the calculator fields...................................passed
+When User inputs monthly rent "800".........................................passed
+And User inputs interest rate "4.590" percent...............................passed
+And User selects the amortization "30 years" period.........................passed
+And User selects the down payment "5%" percentage...........................passed
+And User clicks calculate button in rent vs buy calculator..................passed
+Then User should be able to see 3 cards for 5%, 10% and 20% down payment....passed
+And User should be able to see the total mortgage "$158,935" "$169,230" "$196,285".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see the mortgage (loan) amount when selecting 5%, 10% and 20% down payment for a - #1.2" time="9.26">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Mortgages tab.............................................passed
+And User hovers over Mortgages tab..........................................passed
+And User clicks Rent vs Buy Calculator......................................passed
+And User should be at the Rent vs Buy Calculator page.......................passed
+And User should see the calculator fields...................................passed
+When User inputs monthly rent "1200"........................................passed
+And User inputs interest rate "5" percent...................................passed
+And User selects the amortization "20 years" period.........................passed
+And User selects the down payment "10%" percentage..........................passed
+And User clicks calculate button in rent vs buy calculator..................passed
+Then User should be able to see 3 cards for 5%, 10% and 20% down payment....passed
+And User should be able to see the total mortgage "$184,832" "$196,803" "$228,267".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see the mortgage (loan) amount when selecting 5%, 10% and 20% down payment for a - #1.3" time="7.264">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+And User sees the Mortgages tab.............................................passed
+And User hovers over Mortgages tab..........................................passed
+And User clicks Rent vs Buy Calculator......................................passed
+And User should be at the Rent vs Buy Calculator page.......................passed
+And User should see the calculator fields...................................passed
+When User inputs monthly rent "2000"........................................passed
+And User inputs interest rate "6" percent...................................passed
+And User selects the amortization "10 years" period.........................passed
+And User selects the down payment "20%" percentage..........................passed
+And User clicks calculate button in rent vs buy calculator..................passed
+Then User should be able to see 3 cards for 5%, 10% and 20% down payment....passed
+And User should be able to see the total mortgage "$182,943" "$194,792" "$225,935".passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to locate the nearest ATM to an specific address so that I can plan ahead on a visit" name="Test that user gets instructions on how to use the search if no address is provided" time="5.408">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+When User clicks search address button......................................passed
+Then User should see a Where are you located? "Where are you located?" message.passed
+And User should see a Share Your Location "Share Your Location" button......passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to locate the nearest ATM to an specific address so that I can plan ahead on a visit" name="Test that user gets the correct closest branches or atms given an specific address - #1.1" time="5.696">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+When User inputs an address "130 Adelaide"..................................passed
+And User clicks search address button.......................................passed
+Then User should be able to see 10 closest ATM or branch suggestions........passed
+Then User should be able to see the cards...................................passed
+And User should be able to see "Adelaide & York"............................passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to locate the nearest ATM to an specific address so that I can plan ahead on a visit" name="Test that user gets the correct closest branches or atms given an specific address - #1.2" time="5.549">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+When User inputs an address "222 Queen St"..................................passed
+And User clicks search address button.......................................passed
+Then User should be able to see 10 closest ATM or branch suggestions........passed
+Then User should be able to see the cards...................................passed
+And User should be able to see "Petro-Canada"...............................passed
+]]></system-out>
+</testcase>
+<testcase classname="As a user I want to locate the nearest ATM to an specific address so that I can plan ahead on a visit" name="Test that user gets the correct closest branches or atms given an specific address - #1.3" time="7.046">
+<system-out><![CDATA[
+Given User launches the application.........................................passed
+And User should be at the homepage..........................................passed
+And User accepts the privacy settings.......................................passed
+When User inputs an address "720 King St"...................................passed
+And User clicks search address button.......................................passed
+Then User should be able to see 10 closest ATM or branch suggestions........passed
+Then User should be able to see the cards...................................passed
+And User should be able to see "RBC The Well On Front"......................passed
+]]></system-out>
+</testcase>
+</testsuite>

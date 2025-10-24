@@ -4,9 +4,7 @@ import data.DataFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,16 +14,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class RentBuyCalculatorPage {
-    WebDriver driver;
-    Actions action;
-
-
-    public RentBuyCalculatorPage(WebDriver driver) {
-        this.driver = driver;
-        this.action = new Actions(driver);
-        PageFactory.initElements(driver, this);
-    }
+public class RentBuyCalculatorPage extends BasePage{
 
 
     @FindBy(tagName = "h1")
@@ -54,6 +43,10 @@ public class RentBuyCalculatorPage {
     private WebElement paymentTooltipMsg;
     @FindBy(xpath = "//span[contains(@class, 'error-msg')]")
     private WebElement rentValidationMsg;
+
+    public RentBuyCalculatorPage(WebDriver driver) {
+        super(driver);
+    }
 
 
     // Methods
