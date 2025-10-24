@@ -31,7 +31,10 @@ public class HomePage {
     private WebElement mortgagesLink;
     @FindBy(linkText = "Rent vs Buy Calculator")
     private WebElement rentBuyCalculatorLink;
-
+    @FindBy(id= "q")
+    private WebElement findATMSearchBar;
+    @FindBy(id= "branch-atm-search")
+    private WebElement findATMSearchBtn;
 
     // methods
     public String getUrl() {
@@ -72,4 +75,11 @@ public class HomePage {
         action.moveToElement(rentBuyCalculatorLink).click().perform();
     }
 
+    public void inputAddress(String address){
+        findATMSearchBar.sendKeys(address);
+    }
+
+    public void clickATMLocatorButton(){
+        findATMSearchBtn.click();
+    }
 }

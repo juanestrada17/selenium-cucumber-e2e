@@ -3,10 +3,7 @@ package stepdefinitions;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
-import pages.CookiesPopup;
-import pages.HomePage;
-import pages.RSSPCalculatorPage;
-import pages.RentBuyCalculatorPage;
+import pages.*;
 import utilities.DriverUtilities;
 
 
@@ -17,6 +14,7 @@ public class Hooks {
     static RSSPCalculatorPage rsspCalculatorPage;
     static CookiesPopup cookiesPopup;
     static RentBuyCalculatorPage rentBuyCalculatorPage;
+    static ATMLocatorPage atmLocator;
 
     @Before
     public void init() {
@@ -29,6 +27,7 @@ public class Hooks {
         rsspCalculatorPage = new RSSPCalculatorPage(driver);
         cookiesPopup = new CookiesPopup(driver);
         rentBuyCalculatorPage = new RentBuyCalculatorPage(driver);
+        atmLocator = new ATMLocatorPage(driver);
     }
 
     @After
