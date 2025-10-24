@@ -27,6 +27,10 @@ public class HomePage {
     private WebElement investmentsLink;
     @FindBy(linkText = "RRSP Calculator")
     private WebElement rrspCalculatorLink;
+    @FindBy(linkText = "Mortgages")
+    private WebElement mortgagesLink;
+    @FindBy(linkText = "Rent vs Buy Calculator")
+    private WebElement rentBuyCalculatorLink;
 
 
     // methods
@@ -46,10 +50,6 @@ public class HomePage {
         assertTrue(investmentsLink.isDisplayed());
     }
 
-    public void clickInvestmentsLink() {
-        investmentsLink.click();
-    }
-
     public void hoverInvestmentsLink() {
         action.moveToElement(investmentsLink).perform();
     }
@@ -57,6 +57,19 @@ public class HomePage {
     public void clickRRSPCalculatorLnk() {
         hoverInvestmentsLink();
         action.moveToElement(rrspCalculatorLink).click().perform();
+    }
+
+    public void verifyMortgagesLink(){
+        assertTrue(mortgagesLink.isDisplayed());
+    }
+
+    public void hoverMortgagesLink() {
+        action.moveToElement(mortgagesLink).perform();
+    }
+
+    public void clickRentBuyCalculatorLink() {
+        hoverMortgagesLink();
+        action.moveToElement(rentBuyCalculatorLink).click().perform();
     }
 
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import pages.CookiesPopup;
 import pages.HomePage;
 import pages.RSSPCalculatorPage;
+import pages.RentBuyCalculatorPage;
 import utilities.DriverUtilities;
 
 
@@ -15,6 +16,7 @@ public class Hooks {
     static HomePage homePage;
     static RSSPCalculatorPage rsspCalculatorPage;
     static CookiesPopup cookiesPopup;
+    static RentBuyCalculatorPage rentBuyCalculatorPage;
 
     @Before
     public void init() {
@@ -26,6 +28,7 @@ public class Hooks {
         homePage = new HomePage(driver);
         rsspCalculatorPage = new RSSPCalculatorPage(driver);
         cookiesPopup = new CookiesPopup(driver);
+        rentBuyCalculatorPage = new RentBuyCalculatorPage(driver);
     }
 
     @After
