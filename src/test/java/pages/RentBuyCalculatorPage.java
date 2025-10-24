@@ -97,6 +97,8 @@ public class RentBuyCalculatorPage extends BasePage{
     }
 
     public void clickCalculateBtn() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(calculateBtn));
         calculateBtn.click();
     }
 

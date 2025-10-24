@@ -14,7 +14,8 @@ import org.junit.runner.RunWith;
                 "json:Report/cucumber.json",
                 "junit:Report/cucumber.junit",
                 "html:Report/cucumber.html",
-        }
+        },
+        publish = true
 )
 public class Runner {
 

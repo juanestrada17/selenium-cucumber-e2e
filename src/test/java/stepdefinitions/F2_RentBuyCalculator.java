@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class F2_RentBuyCalculator {
     @Given("User sees the Mortgages tab")
@@ -48,7 +49,6 @@ public class F2_RentBuyCalculator {
 
     @When("User selects the down payment {string} percentage")
     public void user_selects_the_down_payment_percentage(String payment) {
-
         Hooks.rentBuyCalculatorPage.selectDownPayment(payment);
     }
 
