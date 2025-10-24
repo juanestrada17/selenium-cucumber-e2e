@@ -8,12 +8,14 @@ Feature: As a user I want to locate the nearest ATM to an specific address so th
     And User should be at the homepage
     And User accepts the privacy settings
 
-  Scenario:
+  @AddressNotProvided
+  Scenario: Test that user gets instructions on how to use the search if no address is provided
     When User clicks search address button
-    Then User should see a "Where are you located?" message
-    And User should see a "Share Your Location" button
+    Then User should see a Where are you located? "Where are you located?" message
+    And User should see a Share Your Location "Share Your Location" button
 
-  Scenario Outline:
+  @ProvidedAddress
+  Scenario Outline: Test that user gets the correct closest branches or atms given an specific address
     When User inputs an address "<address>"
     And User clicks search address button
     Then User should be able to see 10 closest ATM or branch suggestions

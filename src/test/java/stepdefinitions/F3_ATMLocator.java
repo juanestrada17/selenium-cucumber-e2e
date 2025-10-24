@@ -1,15 +1,9 @@
 package stepdefinitions;
 
-import io.cucumber.java.PendingException;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class F3_ATMLocator {
     @When("User inputs an address {string}")
@@ -18,9 +12,8 @@ public class F3_ATMLocator {
     }
 
     @When("User clicks search address button")
-    public void user_clicks_search_address_button() throws InterruptedException {
+    public void user_clicks_search_address_button(){
         Hooks.homePage.clickATMLocatorButton();
-        Thread.sleep(5000);
     }
 
     @Then("User should be able to see {int} closest ATM or branch suggestions")
@@ -38,13 +31,13 @@ public class F3_ATMLocator {
         Hooks.atmLocator.verifyFirstCardAddress(address);
     }
 
-    @Then("User should see a {string} message")
-    public void userShouldSeeAMessage(String message) {
+    @Then("User should see a Where are you located? {string} message")
+    public void userShouldSeeAWhereMessage(String message) {
        Hooks.atmLocator.verifyPageTitle(message);
     }
 
-    @And("User should see a {string} button")
-    public void userShouldSeeAButton(String message) {
+    @And("User should see a Share Your Location {string} button")
+    public void userShouldSeeAShareLocationButton(String message) {
         Hooks.atmLocator.verifyShareLocationBtn(message);
     }
 }

@@ -21,7 +21,6 @@ public class ATMLocatorPage {
         PageFactory.initElements(driver, this);
     }
 
-    // locators
     @FindBy(xpath = "//div[contains(@class, 'map-sidebar-content')]")
     private WebElement mapSideBar;
     @FindBy(xpath = "//div[contains(@class, 'map-sidebar-card') and @data-page='1' and @data-id]")
@@ -30,27 +29,26 @@ public class ATMLocatorPage {
     private WebElement filterBtn;
     @FindBy(id = "share-your-location")
     private WebElement shareLocationBtn;
-    @FindBy(id="page-title")
+    @FindBy(id = "page-title")
     private WebElement pageTitle;
 
-    // methods
-    public void verifyVisibleSideBar(){
+    public void verifyVisibleSideBar() {
         mapSideBar.isDisplayed();
     }
 
-    public void verifyCardElementsAmount(int resultAmount){
+    public void verifyCardElementsAmount(int resultAmount) {
         assertEquals(resultAmount, mapSideBarCards.size());
     }
 
-    public void verifyFirstCardAddress(String address){
+    public void verifyFirstCardAddress(String address) {
         assertTrue(mapSideBarCards.getFirst().getText().contains(address));
     }
 
-    public void verifyPageTitle(String message){
+    public void verifyPageTitle(String message) {
         assertTrue(pageTitle.getText().contains(message));
     }
 
-    public void verifyShareLocationBtn(String message){
+    public void verifyShareLocationBtn(String message) {
         assertTrue(shareLocationBtn.getText().contains(message));
     }
 
