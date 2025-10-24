@@ -1,11 +1,9 @@
 package stepdefinitions;
 
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.interactions.Action;
 
 public class F2_RentBuyCalculator {
     @Given("User sees the Mortgages tab")
@@ -34,38 +32,33 @@ public class F2_RentBuyCalculator {
     }
 
     @When("User inputs monthly rent {string}")
-    public void user_inputs_monthly_rent(String rent) throws InterruptedException {
-        Thread.sleep(1000);
+    public void user_inputs_monthly_rent(String rent) {
         Hooks.rentBuyCalculatorPage.inputRentAmount(rent);
     }
 
     @When("User inputs interest rate {string} percent")
-    public void user_inputs_interest_rate_percent(String rate) throws InterruptedException {
-        Thread.sleep(1000);
+    public void user_inputs_interest_rate_percent(String rate) {
         Hooks.rentBuyCalculatorPage.inputInterestRate(rate);
     }
 
     @When("User selects the amortization {string} period")
-    public void user_selects_the_amortization_period(String amortization) throws InterruptedException {
-        Thread.sleep(1000);
+    public void user_selects_the_amortization_period(String amortization) {
         Hooks.rentBuyCalculatorPage.selectAmortizationPeriod(amortization);
     }
 
     @When("User selects the down payment {string} percentage")
-    public void user_selects_the_down_payment_percentage(String payment) throws InterruptedException {
-        Thread.sleep(1000);
+    public void user_selects_the_down_payment_percentage(String payment) {
+
         Hooks.rentBuyCalculatorPage.selectDownPayment(payment);
     }
 
     @When("User clicks calculate button in rent vs buy calculator")
-    public void user_clicks_calculate_button_in_rent_vs_buy_calculator() throws InterruptedException {
-        Thread.sleep(1000);
+    public void user_clicks_calculate_button_in_rent_vs_buy_calculator() {
         Hooks.rentBuyCalculatorPage.clickCalculateBtn();
     }
 
-    @Then("User should be able to see {int} cards for {int}%, {int}% and {int}% down payment")
-    public void user_should_be_able_to_see_cards_for_and_down_payment(Integer int1, Integer int2, Integer int3, Integer int4) throws InterruptedException {
-        Thread.sleep(1000);
+    @Then("User should be able to see 3 cards for 5%, 10% and 20% down payment")
+    public void user_should_be_able_to_see_cards_for_and_down_payment() {
         Hooks.rentBuyCalculatorPage.verifyCardsAmount();
     }
 
@@ -101,7 +94,7 @@ public class F2_RentBuyCalculator {
     }
 
     @Then("User shouldn't be able to click on the calculate button and it should be disabled")
-    public void userShouldnTBeAbleToClickOnTheCalculateButtonAndItShouldBeDisabled() {
+    public void userShouldNotTBeAbleToClickOnTheCalculateButtonAndItShouldBeDisabled() {
         Hooks.rentBuyCalculatorPage.verifyCalculateButtonDisabled();
     }
 }

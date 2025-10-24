@@ -1,14 +1,17 @@
 package pages;
 
+import data.DataFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,14 +21,13 @@ public class RentBuyCalculatorPage {
     Actions action;
 
 
-
-    public RentBuyCalculatorPage(WebDriver driver){
+    public RentBuyCalculatorPage(WebDriver driver) {
         this.driver = driver;
         this.action = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
 
-    // Locators
+
     @FindBy(tagName = "h1")
     private WebElement pageTitle;
     @FindBy(xpath = "//*[@id='rentForm']//input | //*[@id='rentForm']//select")
@@ -55,13 +57,13 @@ public class RentBuyCalculatorPage {
 
 
     // Methods
-    public void verifyPageTitle(){
+    public void verifyPageTitle() {
         assertTrue(pageTitle.isDisplayed());
     }
 
-    public void verifyFormFields(){
+    public void verifyFormFields() {
         assertFalse(formFields.isEmpty());
-        assertEquals(5, formFields.size());
+        assertEquals(DataFile.rentBuyCalculatorFormFields, formFields.size());
     }
 
     public void verifyMortgageCards(String fiveMortgage, String tenMortgage, String twentyMortgage) {
@@ -82,57 +84,57 @@ public class RentBuyCalculatorPage {
     }
 
 
-    public void inputRentAmount(String rent){
+    public void inputRentAmount(String rent) {
         rentAmount.sendKeys(rent);
     }
 
-    public void inputInterestRate(String interest){
+    public void inputInterestRate(String interest) {
         interestRate.clear();
         interestRate.sendKeys(interest);
     }
 
-    public void selectAmortizationPeriod(String period){
+    public void selectAmortizationPeriod(String period) {
         Select select = new Select(amortizationPeriod);
         select.selectByVisibleText(period);
     }
 
-    public void selectDownPayment(String payment){
+    public void selectDownPayment(String payment) {
         Select select = new Select(downPayment);
         select.selectByVisibleText(payment);
     }
 
-    public void clickCalculateBtn(){
+    public void clickCalculateBtn() {
         calculateBtn.click();
     }
 
-    public void clickAmortizationTooltip(){
+    public void clickAmortizationTooltip() {
         amortizationTooltip.click();
     }
 
-    public void verifyAmortizationTooltipMsg(String message){
+    public void verifyAmortizationTooltipMsg(String message) {
         assertTrue(amortizationTooltipMsg.getText().contains(message));
     }
 
-    public void verifyCardsAmount(){
-        assertEquals(3, mortgageCards.size());
+    public void verifyCardsAmount() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfAllElements(mortgageCards));
+        assertEquals(DataFile.rentBuyCalculatorCardAmount, mortgageCards.size());
     }
 
-    public void clickPaymentTooltip(){
+    public void clickPaymentTooltip() {
         paymentTooltip.click();
     }
 
-    public void verifyPaymentTooltipMsg(String message){
+    public void verifyPaymentTooltipMsg(String message) {
         assertTrue(paymentTooltipMsg.getText().contains(message));
     }
 
-    public void verifyRentValidationMessage(String message){
+    public void verifyRentValidationMessage(String message) {
         assertTrue(rentValidationMsg.getText().contains(message));
     }
 
-    public void verifyCalculateButtonDisabled(){
+    public void verifyCalculateButtonDisabled() {
         action.moveToElement(calculateBtn).click().perform();
         assertFalse(calculateBtn.isEnabled());
     }
-
-
 }

@@ -14,14 +14,17 @@ Feature: As a user I want to calculate how much money I can save in a registered
     And User should be at the Rent vs Buy Calculator page
     And User should see the calculator fields
 
+  @AmortizationTooltip
   Scenario: User should be able to click on the amortization period and get a clear message of what it means
     When User clicks the amortization period tooltip
     Then User should be able to see "Most people choose a 25-year amortization period" in the period message
 
+  @DownPaymentTooltip
   Scenario: User should be able to click on the down payment tooltip and get a clear message of what it means
     When User clicks the down payment tooltip
     Then User should be able to see "In order to be approved for a mortgage, you will need at least 5% of the purchase price" in the down payment
 
+  @RentNotProvided
   Scenario Outline: User should be able to see an error message if monthly rent is not provided
     When User inputs monthly rent "<rent>"
     Then User shouldn't be able to click on the calculate button and it should be disabled
@@ -31,6 +34,7 @@ Feature: As a user I want to calculate how much money I can save in a registered
       | 0    |
       |      |
 
+  @MortgageRentResult
   Scenario Outline: User should be able to see the mortgage (loan) amount when selecting 5%, 10% and 20% down payment for a
   given purchase price.
     When User inputs monthly rent "<rent>"
