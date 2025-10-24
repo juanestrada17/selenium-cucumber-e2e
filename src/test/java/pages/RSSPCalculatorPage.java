@@ -1,9 +1,9 @@
 package pages;
 
+import data.DataFile;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -23,10 +23,9 @@ public class RSSPCalculatorPage {
         PageFactory.initElements(driver, this);
     }
 
-    // Locators
     @FindBy(tagName = "h1")
     private WebElement pageTitle;
-    @FindBy(className = "grid-one-third")
+    @FindBy(xpath = "//div[@class='grid-one-third']//label")
     private List<WebElement> calculatorFields;
     @FindBy(xpath = "//input[@id='retire']")
     private WebElement retireYears;
@@ -44,7 +43,6 @@ public class RSSPCalculatorPage {
     private WebElement savingsTipDiffTxt;
     @FindBy(xpath = "//span[@class='biweekly-tip-contribution']")
     private WebElement tipDiffTxt;
-    // New Vals
     @FindBy(xpath = "//button[@data-id='rate-tooltip']")
     private WebElement rateOfReturnTooltip;
     @FindBy(xpath = "//div[@id='rate-tooltip-content']")
@@ -52,43 +50,48 @@ public class RSSPCalculatorPage {
     @FindBy(id = "error-rate")
     private WebElement rateOfReturnErrorMsg;
 
-    // Methods
     public void verifyPageTitle() {
         assertTrue(pageTitle.isDisplayed());
     }
 
     public void verifyVisibleFields() {
+        assertEquals(DataFile.rsspCalculatorNumber, calculatorFields.size());
         for (WebElement field : calculatorFields) {
             assertTrue(field.isDisplayed());
         }
     }
 
     public void inputRetireYears(String years) {
+        assertTrue(retireYears.isDisplayed());
         retireYears.clear();
         retireYears.sendKeys(years);
     }
 
     public void inputContributionAmount(String amount) {
+        assertTrue(contributionAmount.isDisplayed());
         contributionAmount.clear();
         contributionAmount.sendKeys(amount);
     }
 
     public void selectContributionFrequency(String frequency) {
+        assertTrue(contributionFrequency.isDisplayed());
         Select contribution = new Select(contributionFrequency);
         contribution.selectByVisibleText(frequency);
     }
 
     public void inputRateOfReturn(String rate) {
+        assertTrue(rateOfReturn.isDisplayed());
         rateOfReturn.clear();
         rateOfReturn.sendKeys(rate);
     }
 
-    public void clickCalculateBtn() {
+    public void clickCalculateBtn() {;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         wait.until(ExpectedConditions.elementToBeClickable(calculateBtn)).click();
     }
 
     public void verifySavingsAmount(String amount) {
+        assertTrue(totalSavingsAmount.isDisplayed());
         assertEquals(amount, totalSavingsAmount.getText());
     }
 
@@ -105,13 +108,18 @@ public class RSSPCalculatorPage {
         rateOfReturnTooltip.isDisplayed();
     }
 
-    public void verifyRateTooltipContent(String expectedContent) {
+    public void verifyRateToolTipContentVisibility(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(rateTooltipContent));
         assertTrue(rateTooltipContent.isDisplayed());
-        assertTrue(expectedContent, rateTooltipContent.getText().contains(expectedContent));
+    }
+
+    public void verifyRateTooltipContent(String expectedContent) {
+        assertTrue(rateTooltipContent.getText().contains(expectedContent));
     }
 
     public void verifyRateErrorMsgVisibility() {
-        rateOfReturnErrorMsg.isDisplayed();
+        assertTrue(rateOfReturnErrorMsg.isDisplayed());
     }
 
     public void verifyRateErrorMsg(String expectedError) {

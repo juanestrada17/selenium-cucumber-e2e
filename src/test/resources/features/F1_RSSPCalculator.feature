@@ -18,6 +18,7 @@ Feature: As a user I want to calculate how much money I can save in a registered
   Scenario: User should be able to click on rate of return tooltip to get a message explaining what to input
     Given User can see the tooltip next to the rate field
     When User clicks the tooltip for rate field
+    And User can see tooltip content
     Then User should see a message "This is how much growth you expect to see in your account between now and retirement."
 
   @IncorrectReturnRate

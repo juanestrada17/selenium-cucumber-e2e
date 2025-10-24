@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import pages.*;
 import utilities.DriverUtilities;
 
+import java.time.Duration;
+
 
 public class Hooks {
     static WebDriver driver;
@@ -21,7 +23,7 @@ public class Hooks {
         driverUtilities = DriverUtilities.getInstance();
         driver = driverUtilities.getDriver();
         driver.manage().window().maximize();
-        // TODO = add implicit wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         homePage = new HomePage(driver);
         rsspCalculatorPage = new RSSPCalculatorPage(driver);
@@ -32,7 +34,6 @@ public class Hooks {
 
     @After
     public void tearDown() throws InterruptedException {
-        Thread.sleep(2000);
         DriverUtilities.resetDriver();
     }
 }

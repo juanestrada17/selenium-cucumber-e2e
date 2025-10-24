@@ -1,6 +1,7 @@
 package stepdefinitions;
 
 import data.DataFile;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -86,7 +87,7 @@ public class F1_RRSPCalculator {
     }
 
     @Then("User should see a tip with potential savings {string} and recommended contribution amount {string}")
-    public void userShouldSeeATipWithPotentialSavingsAndReccomendedContributionAmount(String savingsAmount, String contributionAmount) {
+    public void userShouldSeeATipWithPotentialSavingsAndRecommendedContributionAmount(String savingsAmount, String contributionAmount) {
         Hooks.rsspCalculatorPage.verifySavingsDiff(savingsAmount, contributionAmount);
     }
 
@@ -115,5 +116,10 @@ public class F1_RRSPCalculator {
     public void userShouldBeAbleToSeeTheMessage(String message) {
         Hooks.rsspCalculatorPage.verifyRateErrorMsgVisibility();
         Hooks.rsspCalculatorPage.verifyRateErrorMsg(message);
+    }
+
+    @And("User can see tooltip content")
+    public void userCanSeeTooltipContent() {
+        Hooks.rsspCalculatorPage.verifyRateToolTipContentVisibility();
     }
 }
