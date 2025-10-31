@@ -48,8 +48,6 @@ public class RentBuyCalculatorPage extends BasePage{
         super(driver);
     }
 
-
-    // Methods
     public void verifyPageTitle() {
         assertTrue(pageTitle.isDisplayed());
     }
