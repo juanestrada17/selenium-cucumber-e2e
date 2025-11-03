@@ -25,13 +25,6 @@ pipeline {
             }
         }
 
-        stage('Check Allure Results') {
-            steps {
-                echo 'Checking Allure results folder...'
-                bat 'dir target\\allure-results'
-            }
-        }
-
         stage('Allure Report') {
             steps {
                 echo 'Publishing Allure Report...'
