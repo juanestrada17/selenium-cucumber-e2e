@@ -33,6 +33,12 @@ pipeline {
             }
         }
 
+        stage('Allure Report') {
+            steps {
+                allure includeProperties: false, results: [[path: 'target/allure-results']]
+            }
+        }
+
         stage('Publish Cucumber Report') {
             steps {
                 cucumber buildStatus: 'UNSTABLE',
