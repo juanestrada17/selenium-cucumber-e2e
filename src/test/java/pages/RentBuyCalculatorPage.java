@@ -102,6 +102,7 @@ public class RentBuyCalculatorPage extends BasePage {
     }
 
     public void verifyAmortizationTooltipMsg(String message) {
+        wait.until(ExpectedConditions.visibilityOf(amortizationTooltipMsg));
         assertTrue(amortizationTooltipMsg.getText().contains(message));
     }
 
@@ -115,10 +116,12 @@ public class RentBuyCalculatorPage extends BasePage {
     }
 
     public void verifyPaymentTooltipMsg(String message) {
+        wait.until(ExpectedConditions.visibilityOf(paymentTooltipMsg));
         assertTrue(paymentTooltipMsg.getText().contains(message));
     }
 
     public void verifyRentValidationMessage(String message) {
+        wait.until(ExpectedConditions.visibilityOf(rentValidationMsg));
         assertTrue(rentValidationMsg.getText().contains(message));
     }
 
