@@ -59,10 +59,11 @@ pipeline {
             echo 'Cleaning up workspace...'
             cleanWs()
         }
-    }
-    failure {
-        mail to: 'juanestrada17@outlook.com',
-             subject: "Build Failed: ${currentBuild.fullDisplayName}",
-             body: "The build has failed. Please check the Jenkins job for details: ${env.BUILD_URL}"
+
+        failure {
+            mail to: 'juanestrada17@outlook.com',
+                 subject: "Build Failed: ${currentBuild.fullDisplayName}",
+                 body: "The build has failed. Please check the Jenkins job for details: ${env.BUILD_URL}"
+        }
     }
 }
