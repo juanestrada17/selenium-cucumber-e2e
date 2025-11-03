@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -84,8 +82,6 @@ public class RSSPCalculatorPage extends BasePage {
     }
 
     public void clickCalculateBtn() {
-        ;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         wait.until(ExpectedConditions.elementToBeClickable(calculateBtn)).click();
     }
 
@@ -108,7 +104,6 @@ public class RSSPCalculatorPage extends BasePage {
     }
 
     public void verifyRateToolTipContentVisibility() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(rateTooltipContent));
         assertTrue(rateTooltipContent.isDisplayed());
     }

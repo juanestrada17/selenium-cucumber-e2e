@@ -7,9 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -95,7 +93,6 @@ public class RentBuyCalculatorPage extends BasePage {
     }
 
     public void clickCalculateBtn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(calculateBtn));
         calculateBtn.click();
     }
@@ -109,7 +106,6 @@ public class RentBuyCalculatorPage extends BasePage {
     }
 
     public void verifyCardsAmount() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfAllElements(mortgageCards));
         assertEquals(DataFile.rentBuyCalculatorCardAmount, mortgageCards.size());
     }

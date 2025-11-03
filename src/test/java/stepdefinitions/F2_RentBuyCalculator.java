@@ -4,7 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class F2_RentBuyCalculator {
     @Given("User sees the Mortgages tab")
