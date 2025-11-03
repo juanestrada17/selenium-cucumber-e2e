@@ -19,17 +19,10 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build And Test') {
             steps {
                 echo 'Building...'
                 bat 'mvn clean install'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                bat 'mvn test'
             }
         }
 
