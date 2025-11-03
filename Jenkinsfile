@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-       jdk 'JDK21'
-       maven 'Maven3'
+        jdk 'JDK21'
+        maven 'Maven3'
     }
 
     options {
@@ -12,17 +12,30 @@ pipeline {
     }
 
     stages {
-        // Checkout stage to pull the latest code from SCM
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        stage('Build And Test') {
+        stage('Build and Test') {
             steps {
-                echo 'Building...'
-                bat 'mvn clean install'
+                echo 'Building and running tests...'
+                bat 'mvn clean test'
+            }
+        }
+
+        stage('Check Allure Results') {
+            steps {
+                echo 'Checking Allure results folder...'
+                bat 'dir target\\allure-results'
+            }
+        }
+
+        stage('Allure Report') {
+            steps {
+                echo 'Publishing Allure Report...'
+                allure includeProperties: false, results: [[path: 'target/allure-results']]
             }
         }
 
@@ -34,9 +47,8 @@ pipeline {
                          trendsLimit: 10,
                          classifications: [
                              [key: 'Platform', value: 'Windows'],
-                             [key: 'Browser', value: 'Chrome'],
+                             [key: 'Browser', value: 'Chrome']
                          ]
-
                 junit 'target/surefire-reports/*.xml'
             }
         }
@@ -51,18 +63,12 @@ pipeline {
 
     post {
         always {
-            allure includeProperties:
-                    false,
-                    jdk: '',
-                    results: [[path: 'target/allure-results']]
             echo 'Cleaning up workspace...'
             cleanWs()
         }
-
         success {
             echo 'Build succeeded!'
         }
-
         failure {
             echo 'Build failed!'
         }
