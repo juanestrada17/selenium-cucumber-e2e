@@ -33,16 +33,18 @@ pipeline {
             }
         }
 
-        stage('Publish Cucumber Report'){
+        stage('Publish Cucumber Report') {
             steps {
                 cucumber buildStatus: 'UNSTABLE',
-                fileIncludePattern: '**/target/cucumber-reports/*.json',
-                sortingMethod: 'ALPHABETICAL',
-                trendsLimit: 10,
-                classifications: [
-                    [key: 'Platform', value: 'Windows'],
-                    [key: 'Browser', value: 'Chrome'],
-                ]
+                         fileIncludePattern: 'Report/*.json',
+                         sortingMethod: 'ALPHABETICAL',
+                         trendsLimit: 10,
+                         classifications: [
+                             [key: 'Platform', value: 'Windows'],
+                             [key: 'Browser', value: 'Chrome'],
+                         ]
+
+                junit 'target/surefire-reports/*.xml'
             }
         }
 
