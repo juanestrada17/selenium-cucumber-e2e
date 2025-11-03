@@ -51,15 +51,12 @@ pipeline {
 
     post {
         always {
+            allure includeProperties:
+                    false,
+                    jdk: '',
+                    results: [[path: 'target/allure-results']]
             echo 'Cleaning up workspace...'
             cleanWs()
-        }
-
-        always {
-            allure includeProperties:
-            false,
-            jdk: '',
-            results: [[path: 'target/allure-results']]
         }
 
         success {
