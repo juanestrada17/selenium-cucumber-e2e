@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class RentBuyCalculatorPage extends BasePage{
+public class RentBuyCalculatorPage extends BasePage {
 
 
     @FindBy(tagName = "h1")
