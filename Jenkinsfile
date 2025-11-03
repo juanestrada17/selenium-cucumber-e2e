@@ -26,12 +26,6 @@ pipeline {
             }
         }
 
-        stage('Allure Report') {
-            steps {
-                allure includeProperties: false, results: [[path: 'target/allure-results']]
-            }
-        }
-
         stage('Publish Cucumber Report') {
             steps {
                 cucumber buildStatus: 'UNSTABLE',
@@ -59,6 +53,13 @@ pipeline {
         always {
             echo 'Cleaning up workspace...'
             cleanWs()
+        }
+
+        always {
+            allure includeProperties:
+            false,
+            jdk: '',
+            results: [[path: 'target/allure-results']]
         }
 
         success {
