@@ -50,8 +50,8 @@ pipeline {
 
         stage('Archive Artifacts') {
             steps {
-                echo 'Archiving artifacts...'
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                echo 'Archiving test reports...'
+                archiveArtifacts artifacts: 'Report/*.html', fingerprint: true
             }
         }
     }
