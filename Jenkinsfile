@@ -23,14 +23,13 @@ pipeline {
                 echo 'Building and running tests...'
                 bat 'mvn clean test'
             }
-        }
-
-        stage('Allure Report') {
-            steps {
-                echo 'Publishing Allure Report...'
-                allure includeProperties: false,
-                       jdk: '',
-                       results: [[path: 'target/allure-results']]
+            post {
+                always {
+                    allure includeProperties:
+                     false,
+                     jdk: '',
+                     results: [[path: 'build/allure-results']]
+                }
             }
         }
 
