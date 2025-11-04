@@ -94,22 +94,27 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.3</version>
+                <version>3.0.0-M9</version>
                 <configuration>
+                    <forkCount>0</forkCount>
+                    <reuseForks>false</reuseForks>
+
+                    <printSummary>true</printSummary>
+                    <trimStackTrace>false</trimStackTrace>
+
                     <testFailureIgnore>false</testFailureIgnore>
+
                     <argLine>
                         -Dfile.encoding=${project.build.sourceEncoding}
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                        -Dallure.results.directory=${project.build.directory}/allure-results
                     </argLine>
-                    <properties>
-                        <property>
-                            <name>listener</name>
-                            <value>io.qameta.allure.junit4.AllureJunit4</value>
-                        </property>
-                    </properties>
+
+                    <listeners>
+                        <listener>io.qameta.allure.junit4.AllureJunit4</listener>
+                    </listeners>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
