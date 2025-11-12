@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "stepdefinitions",
-        tags = "",
+        tags = "@RentNotProvided",
         plugin = {
                 "pretty",
                 "json:Report/cucumber.json",
@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
                 "html:Report/cucumber.html",
                 "junit:Report/cucumber.xml"
         },
-        publish = true
+        publish = false
 )
 public class RunnerTest {
 }

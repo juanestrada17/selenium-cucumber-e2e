@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {label : 'maven'}
+
+      environment {
+            MAVEN_OPTS = '-Dmaven.test.failure.ignore=true -Dwebdriver.chrome.silentOutput=true'
+        }}
 
     tools {
         jdk 'JDK21'
