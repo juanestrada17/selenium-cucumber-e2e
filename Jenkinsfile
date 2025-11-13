@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-      environment {
-            MAVEN_OPTS = '-Dmaven.test.failure.ignore=true -Dwebdriver.chrome.silentOutput=true'
-        }
+    environment {
+        MAVEN_OPTS = '-Dmaven.test.failure.ignore=true -Dwebdriver.chrome.silentOutput=true'
+    }
 
     tools {
         jdk 'JDK21'
@@ -25,7 +25,13 @@ pipeline {
         stage('Build and Test') {
             steps {
                 echo 'Building and running tests...'
-                bat 'mvn clean test'
+                script {
+                    if (isUnix()) {
+                        sh 'mvn clean test'
+                    } else {
+                        bat 'mvn clean test'
+                    }
+                }
             }
             post {
                 always {
@@ -39,14 +45,17 @@ pipeline {
 
         stage('Publish Cucumber Report') {
             steps {
-                cucumber buildStatus: 'UNSTABLE',
-                         fileIncludePattern: 'Report/*.json',
-                         sortingMethod: 'ALPHABETICAL',
-                         trendsLimit: 10,
-                         classifications: [
-                             [key: 'Platform', value: 'Windows'],
-                             [key: 'Browser', value: 'Chrome']
-                         ]
+                script {
+                    def platform = isUnix() ? 'Linux' : 'Windows'
+                    cucumber buildStatus: 'UNSTABLE',
+                             fileIncludePattern: 'Report/*.json',
+                             sortingMethod: 'ALPHABETICAL',
+                             trendsLimit: 10,
+                             classifications: [
+                                 [key: 'Platform', value: platform],
+                                 [key: 'Browser', value: 'Chrome']
+                             ]
+                }
                 junit 'target/surefire-reports/*.xml'
             }
         }
