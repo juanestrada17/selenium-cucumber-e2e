@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="32.85" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-11-12T20:43:23.972579700Z">
-<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see an error message if monthly rent is not provided - #1.1" time="22.146">
+<testsuite name="Cucumber" time="20.077" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-11-13T02:38:06.340991900Z">
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see an error message if monthly rent is not provided - #1.1" time="11.308">
 <system-out><![CDATA[
 Given User launches the application.........................................passed
 And User should be at the homepage..........................................passed
@@ -15,7 +15,7 @@ Then User shouldn't be able to click on the calculate button and it should be di
 Then User should see an error message "Please enter your monthly rent.".....passed
 ]]></system-out>
 </testcase>
-<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see an error message if monthly rent is not provided - #1.2" time="10.414">
+<testcase classname="As a user I want to calculate how much money I can save in a registered retirement savings" name="User should be able to see an error message if monthly rent is not provided - #1.2" time="8.444">
 <system-out><![CDATA[
 Given User launches the application.........................................passed
 And User should be at the homepage..........................................passed

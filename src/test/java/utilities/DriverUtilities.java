@@ -9,6 +9,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class DriverUtilities {
@@ -53,10 +54,13 @@ public class DriverUtilities {
 
     public String getBrowser() {
         Properties config = new Properties();
-        try {
-            config.load(new FileInputStream("C:\\Users\\juane\\IdeaProjects\\rbcproject\\src\\test\\java\\utilities\\config.properties"));
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                throw new RuntimeException("config.properties not found in resources folder");
+            }
+            config.load(input);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error loading config.properties", e);
         }
 
         return config.getProperty("Browser");
