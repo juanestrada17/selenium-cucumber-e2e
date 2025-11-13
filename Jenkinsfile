@@ -1,5 +1,5 @@
 pipeline {
-    agent {label : 'maven'}
+    agent any
 
       environment {
             MAVEN_OPTS = '-Dmaven.test.failure.ignore=true -Dwebdriver.chrome.silentOutput=true'
