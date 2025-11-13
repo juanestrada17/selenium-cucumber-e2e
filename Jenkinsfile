@@ -1,38 +1,10 @@
 pipeline {
     agent {
-            kubernetes {
-                label 'selenium-agent'
-                defaultContainer 'selenium'
-                yaml """
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      labels:
-        app: selenium-agent
-    spec:
-      containers:
-      - name: selenium
-        image: your-dockerhub-user/selenium-tests:latest
-        command:
-        - cat
-        tty: true
-        resources:
-          requests:
-            memory: "2Gi"
-            cpu: "1000m"
-          limits:
-            memory: "3Gi"
-            cpu: "2"
-        volumeMounts:
-        - name: dshm
-          mountPath: /dev/shm
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
-    """
-            }
+        kubernetes {
+            label 'selenium-agent'
+            defaultContainer 'selenium'
         }
+    }
 
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=true -Dwebdriver.chrome.silentOutput=true'
