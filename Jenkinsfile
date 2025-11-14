@@ -7,12 +7,16 @@ pipeline {
         REPO = "selenium-tests"
         IMAGE = "selenium-tests"
         TAG = "latest"
+        PATH = "/home/sanyax17/google-cloud-sdk/bin:${env.PATH}"
+
         GCP_KEY_FILE = credentials('artifact-registry-key')
 
         // GKE service account JSON
         GKE_KEY_FILE = credentials('gke-admin-key')
         CLUSTER_NAME = 'gke-cluster'
         CLUSTER_REGION = 'northamerica-northeast2'
+
+
 
     }
 
@@ -108,7 +112,6 @@ pipeline {
         stage('Deploy to GKE') {
             steps {
                 sh '''
-                export PATH=/home/sanyax17/google-cloud-sdk/bin:$PATH
 
                 # Authenticate with GKE service account
                 gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
