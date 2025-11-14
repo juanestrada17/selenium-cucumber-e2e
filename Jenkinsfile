@@ -108,6 +108,8 @@ pipeline {
         stage('Deploy to GKE') {
             steps {
                 sh '''
+                export PATH=/home/sanyax17/google-cloud-sdk/bin:$PATH
+
                 # Authenticate with GKE service account
                 gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
                 gcloud config set project $PROJECT_ID
