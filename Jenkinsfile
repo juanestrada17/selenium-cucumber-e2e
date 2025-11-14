@@ -7,7 +7,7 @@ pipeline {
         REPO = "selenium-tests"
         IMAGE = "selenium-tests"
         TAG = "latest"
-        PATH = "/home/sanyax17/google-cloud-sdk/bin:${env.PATH}"
+        PATH = "/var/lib/jenkins/google-cloud-sdk/bin:${env.PATH}"
 
         GCP_KEY_FILE = credentials('artifact-registry-key')
 
