@@ -7,7 +7,7 @@ pipeline {
         REPO = "selenium-tests"
         IMAGE = "selenium-tests"
         TAG = "latest"
-        GCP_CREDS = credentials('artifact-registry-account')
+        GCP_CREDS = credentials('artifact-registry-key')
     }
 
     tools {
