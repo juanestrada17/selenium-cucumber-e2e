@@ -99,14 +99,15 @@ pipeline {
                 '''
             }
         }
-
     }
 
 
     post {
         always {
-            echo 'Cleaning up workspace...'
-            cleanWs()
+            script {
+                echo 'Cleaning up workspace...'
+                cleanWs()
+            }
         }
         success {
             echo 'Build succeeded!'
