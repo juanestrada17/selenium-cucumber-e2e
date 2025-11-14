@@ -1,13 +1,13 @@
 pipeline {
-    agent {
-        kubernetes {
-            label 'selenium-agent'
-            defaultContainer 'selenium'
-        }
-    }
+    agent any
 
     environment {
-        MAVEN_OPTS = '-Dmaven.test.failure.ignore=true -Dwebdriver.chrome.silentOutput=true'
+        PROJECT_ID = "onyx-segment-477302-c1"
+        REGION = "northamerica-northeast2"
+        REPO = "selenium-tests"
+        IMAGE = "selenium-tests"
+        TAG = "latest"
+        GCP_CREDS = credentials('artifact-registry-account')
     }
 
     tools {
@@ -21,6 +21,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -71,7 +72,36 @@ pipeline {
                 archiveArtifacts artifacts: 'Report/*.html', fingerprint: true
             }
         }
+
+        stage('Authenticate to Google Cloud') {
+            steps {
+                sh '''
+                echo "$GCP_CREDS" > gcloud-key.json
+                gcloud auth activate-service-account --key-file=gcloud-key.json
+                gcloud config set project $PROJECT_ID
+                gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
+                '''
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                docker build -t ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG} .
+                '''
+            }
+        }
+
+        stage('Push to Artifact Registry') {
+            steps {
+                sh '''
+                docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}
+                '''
+            }
+        }
+
     }
+
 
     post {
         always {
