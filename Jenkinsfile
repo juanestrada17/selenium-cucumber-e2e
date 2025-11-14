@@ -7,7 +7,7 @@ pipeline {
         REPO = "selenium-tests"
         IMAGE = "selenium-tests"
         TAG = "latest"
-        GCP_CREDS = credentials('artifact-registry-key')
+        GCP_KEY_FILE = credentials('artifact-registry-key')
     }
 
     tools {
@@ -76,8 +76,7 @@ pipeline {
         stage('Authenticate to Google Cloud') {
             steps {
                 sh '''
-                echo "$GCP_KEY" > gcloud-key.json
-                gcloud auth activate-service-account --key-file=gcloud-key.json
+                gcloud auth activate-service-account --key-file="$GCP_KEY_FILE"
                 gcloud config set project $PROJECT_ID
                 gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
                 '''
