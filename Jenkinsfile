@@ -99,16 +99,17 @@ pipeline {
                 '''
             }
         }
+
+        stage('Cleanup Workspace') {
+            steps {
+                echo 'Cleaning workspace...'
+                cleanWs()
+            }
+        }
     }
 
 
     post {
-        always {
-            script {
-                echo 'Cleaning up workspace...'
-                cleanWs()
-            }
-        }
         success {
             echo 'Build succeeded!'
         }
