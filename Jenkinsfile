@@ -121,8 +121,10 @@ pipeline {
                 gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
 
                 # Apply Kubernetes manifests
-                kubectl apply -f k8s/deployment.yaml
-                kubectl apply -f k8s/service.yaml
+                kubectl apply -f k8s/selenium-job.yaml
+                kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
+                kubectl logs job/selenium-test-job
+
 
                 # Update deployment to latest image
                 kubectl set image deployment/selenium-deployment selenium-container=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}

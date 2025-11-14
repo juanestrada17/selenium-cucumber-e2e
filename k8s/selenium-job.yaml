@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: selenium-test-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: selenium-container
+          image: northamerica-northeast2-docker.pkg.dev/onyx-segment-477302-c1/selenium-tests/selenium-tests:latest
+      restartPolicy: Never
+  backoffLimit: 1
