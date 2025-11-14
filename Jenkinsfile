@@ -104,7 +104,7 @@ pipeline {
 
     post {
         always {
-            script {
+            node {
                 echo 'Cleaning up workspace...'
                 cleanWs()
             }
