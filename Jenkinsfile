@@ -8,6 +8,12 @@ pipeline {
         IMAGE = "selenium-tests"
         TAG = "latest"
         GCP_KEY_FILE = credentials('artifact-registry-key')
+
+        // GKE service account JSON
+        GKE_KEY_FILE = credentials('gke-admin-key')
+        CLUSTER_NAME = 'gke-cluster'
+        CLUSTER_REGION = 'northamerica-northeast2'
+
     }
 
     tools {
@@ -99,12 +105,35 @@ pipeline {
             }
         }
 
+        stage('Deploy to GKE') {
+            steps {
+                sh '''
+                # Authenticate with GKE service account
+                gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
+                gcloud config set project $PROJECT_ID
+
+                # Get kubectl credentials
+                gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
+
+                # Apply Kubernetes manifests
+                kubectl apply -f k8s/deployment.yaml
+                kubectl apply -f k8s/service.yaml
+
+                # Update deployment to latest image
+                kubectl set image deployment/selenium-deployment selenium-container=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}
+                '''
+            }
+        }
+
+
         stage('Cleanup Workspace') {
             steps {
                 echo 'Cleaning workspace...'
                 cleanWs()
             }
         }
+
+
     }
 
 
