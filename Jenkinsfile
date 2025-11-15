@@ -111,10 +111,10 @@ pipeline {
 
        stage('Deploy to GKE') {
            steps {
-               sh """
-               gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
-               gcloud config set project $PROJECT_ID
-               gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
+               sh '''
+       gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
+       gcloud config set project $PROJECT_ID
+       gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
 
        kubectl apply -f - <<EOF
        apiVersion: batch/v1
@@ -131,11 +131,12 @@ pipeline {
              restartPolicy: Never
        EOF
 
-               kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
-               kubectl logs job/selenium-test-job
-               """
+       kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
+       kubectl logs job/selenium-test-job
+       '''
            }
        }
+
 
         stage('Cleanup Workspace') {
             steps {
