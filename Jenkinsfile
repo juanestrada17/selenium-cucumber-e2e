@@ -111,26 +111,32 @@ pipeline {
 
         stage('Deploy to GKE') {
             steps {
-                sh '''
-
-                # Authenticate with GKE service account
+                sh """
                 gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
                 gcloud config set project $PROJECT_ID
-
-                # Get kubectl credentials
                 gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
 
-                # Apply Kubernetes manifests
-                kubectl apply -f k8s/selenium-job.yaml
+                kubectl apply -f - <<EOF
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+          name: selenium-test-job
+        spec:
+          template:
+            spec:
+              containers:
+              - name: selenium-container
+                image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}
+                imagePullPolicy: Always
+              restartPolicy: Never
+        EOF
+
                 kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
                 kubectl logs job/selenium-test-job
-
-
-                # Update deployment to latest image
-                kubectl set image deployment/selenium-deployment selenium-container=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}
-                '''
+                """
             }
         }
+
 
 
         stage('Cleanup Workspace') {
