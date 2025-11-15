@@ -7,6 +7,6 @@ spec:
     spec:
       containers:
         - name: selenium-container
-          image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}
+          image: ${IMAGE_URL}
           imagePullPolicy: Always
       restartPolicy: Never

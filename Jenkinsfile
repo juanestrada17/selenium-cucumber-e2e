@@ -15,9 +15,6 @@ pipeline {
         GKE_KEY_FILE = credentials('gke-admin-key')
         CLUSTER_NAME = 'gke-cluster'
         CLUSTER_REGION = 'northamerica-northeast2'
-
-
-
     }
 
     tools {
@@ -112,28 +109,21 @@ pipeline {
        stage('Deploy to GKE') {
            steps {
                sh '''
-       gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
-       gcloud config set project $PROJECT_ID
-       gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
+               gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
+               gcloud config set project $PROJECT_ID
+               gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
 
-       kubectl apply -f - <<EOF
-       apiVersion: batch/v1
-       kind: Job
-       metadata:
-         name: selenium-test-job
-       spec:
-         template:
-           spec:
-             containers:
-             - name: selenium-container
-               image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}
-               imagePullPolicy: Always
-             restartPolicy: Never
-       EOF
+               export IMAGE_URL="${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}"
 
-       kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
-       kubectl logs job/selenium-test-job
-       '''
+               # Render YAML with env variables and apply it
+               envsubst < k8s/selenium-job.yaml | kubectl apply -f -
+
+               # Wait for job completion
+               kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
+
+               # Show logs
+               kubectl logs job/selenium-test-job
+               '''
            }
        }
 
