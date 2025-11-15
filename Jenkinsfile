@@ -7,11 +7,13 @@ pipeline {
         REPO = "selenium-tests"
         IMAGE = "selenium-tests"
         TAG = "latest"
+
         PATH = "/var/lib/jenkins/google-cloud-sdk/bin:${env.PATH}"
 
+        // Artifact Registry auth
         GCP_KEY_FILE = credentials('artifact-registry-key')
 
-        // GKE service account JSON
+        // GKE service account used to deploy + run job
         GKE_KEY_FILE = credentials('gke-admin-key')
         CLUSTER_NAME = 'gke-cluster'
         CLUSTER_REGION = 'northamerica-northeast2'
@@ -35,48 +37,10 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
+        stage('Build (no tests)') {
             steps {
-                echo 'Building and running tests...'
-                script {
-                    if (isUnix()) {
-                        sh 'mvn clean test'
-                    } else {
-                        bat 'mvn clean test'
-                    }
-                }
-            }
-            post {
-                always {
-                    allure(
-                        includeProperties: false,
-                        results: [[path: 'target/allure-results']]
-                    )
-                }
-            }
-        }
-
-        stage('Publish Cucumber Report') {
-            steps {
-                script {
-                    def platform = isUnix() ? 'Linux' : 'Windows'
-                    cucumber buildStatus: 'UNSTABLE',
-                             fileIncludePattern: 'Report/*.json',
-                             sortingMethod: 'ALPHABETICAL',
-                             trendsLimit: 10,
-                             classifications: [
-                                 [key: 'Platform', value: platform],
-                                 [key: 'Browser', value: 'Chrome']
-                             ]
-                }
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
-
-        stage('Archive Artifacts') {
-            steps {
-                echo 'Archiving test reports...'
-                archiveArtifacts artifacts: 'Report/*.html', fingerprint: true
+                echo 'Building project...'
+                sh 'mvn -Dmaven.test.skip=true clean package'
             }
         }
 
@@ -106,45 +70,40 @@ pipeline {
             }
         }
 
-       stage('Deploy to GKE') {
-           steps {
-               sh '''
-               gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
-               gcloud config set project $PROJECT_ID
-               gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
-
-               export IMAGE_URL="${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}"
-
-               # Render YAML with env variables and apply it
-               envsubst < k8s/selenium-job.yaml | kubectl apply -f -
-
-               # Wait for job completion
-               kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
-
-               # Show logs
-               kubectl logs job/selenium-test-job
-               '''
-           }
-       }
-
-
-        stage('Cleanup Workspace') {
+        stage('Run Selenium Tests in GKE') {
             steps {
-                echo 'Cleaning workspace...'
-                cleanWs()
+                sh '''
+                gcloud auth activate-service-account --key-file="$GKE_KEY_FILE"
+                gcloud config set project $PROJECT_ID
+                gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
+
+                export IMAGE_URL="${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE}:${TAG}"
+
+                # apply the job
+                envsubst < k8s/selenium-job.yaml | kubectl apply -f -
+
+                # wait for job completion
+                kubectl wait --for=condition=complete job/selenium-test-job --timeout=600s
+
+                # fetch logs
+                kubectl logs job/selenium-test-job
+                '''
             }
         }
 
-
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
     }
-
 
     post {
         success {
-            echo 'Build succeeded!'
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Build failed!'
+            echo 'Pipeline failed. Check logs above.'
         }
     }
 }
